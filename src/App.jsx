@@ -3,6 +3,7 @@ import React from "react";
 function App() {
   
   const [quizQuestions, setQuizQuestions] = React.useState([]);
+  const [quizStarted, setQuizStarted] = React.useState(false);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -32,16 +33,31 @@ function App() {
   
   return (
     <div className="container">
-      {quizQuestions.map((question, index) => (
-        <div key={index}>
-          <h3>{question.question}</h3>
-          <ul>
-            {question.options.map((option, index) => (
-              <li key={index}>{option}</li>
-            ))}
-          </ul>
+      {!quizStarted 
+        ? 
+        <div className="quiz-intro-page">
+          <div className="heading"> Quizzical</div>
+          <div className="sub-heading">Some description if needed</div>
+          <button 
+            className="start-button" 
+            onClick={() => setQuizStarted(true)}>
+              Start
+          </button>
+        </div> 
+        :
+        <div className="quiz-page">
+          {quizQuestions.map((question, i) => (
+            <div key={i}>
+              <h3>{question.question}</h3>
+              <ul>
+                {question.options.map((option, j) => (
+                  <li key={j}>{option}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      ))} 
+      }
     </div>
   );
 }

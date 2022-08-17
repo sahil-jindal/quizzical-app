@@ -13,5 +13,7 @@ code {
 }
 
 .container {
-  background-color: #fefefe;
+  width: 550px;
+  height: 550px;
+  background: #F5F7FB;
 }
