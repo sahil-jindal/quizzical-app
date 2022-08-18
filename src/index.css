@@ -47,7 +47,6 @@ code {
   padding-top: 7px;
   padding-bottom: 29px;
   color: rgba(41, 50, 100, 1);
-
 }
 
 .start-button {
@@ -101,7 +100,6 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 label {
