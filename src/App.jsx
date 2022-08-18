@@ -38,20 +38,29 @@ function App() {
         <div className="quiz-intro-page">
           <div className="heading"> Quizzical</div>
           <div className="sub-heading">Some description if needed</div>
-          <button 
+          <div 
             className="start-button" 
             onClick={() => setQuizStarted(true)}>
-              Start
-          </button>
+              Start Quiz
+          </div>
         </div> 
         :
         <div className="quiz-page">
           {quizQuestions.map((question, i) => (
             <div key={i}>
-              <h3>{question.question}</h3>
-              <ul>
+              <div className="question">{question.question}</div>
+              <ul className="flex-container longhand">
                 {question.options.map((option, j) => (
-                  <li key={j}>{option}</li>
+                  <li className="flex-item" key={`question-${i}-option-${j}`} >
+                    <input 
+                      id={`question-${i}-option-${j}`}
+                      type="radio" 
+                      name={`question-${i}`} 
+                      value={option} />
+                    <label htmlFor={`question-${i}-option-${j}`}>
+                      {option}
+                    </label>
+                  </li>
                 ))}
               </ul>
             </div>
