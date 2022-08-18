@@ -16,7 +16,7 @@ function App() {
   React.useEffect(() => {
     
     async function getQuizQuestions() {
-      const response = await fetch('https://opentdb.com/api.php?amount=5')
+      const response = await fetch('https://opentdb.com/api.php?amount=5&encode=base64')
       const data = await response.json();
       return data.results.map((question) => ({
         question: question.question,
@@ -48,7 +48,7 @@ function App() {
         <div className="quiz-page">
           {quizQuestions.map((question, i) => (
             <div key={i}>
-              <div className="question">{question.question}</div>
+              <div className="question">{window.atob(question.question)}</div>
               <ul className="flex-container longhand">
                 {question.options.map((option, j) => (
                   <li className="flex-item" key={`question-${i}-option-${j}`} >
@@ -58,7 +58,7 @@ function App() {
                       name={`question-${i}`} 
                       value={option} />
                     <label htmlFor={`question-${i}-option-${j}`}>
-                      {option}
+                      {window.atob(option)}
                     </label>
                   </li>
                 ))}
