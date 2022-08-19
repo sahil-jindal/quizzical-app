@@ -63,6 +63,7 @@ function App() {
                   </li>
                 ))}
               </ul>
+              <hr style={{border: "0.794239px solid #DBDEF0"}}/>
             </div>
           ))}
         </div>
