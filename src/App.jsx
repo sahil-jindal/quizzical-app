@@ -1,4 +1,7 @@
+import { nanoid } from "nanoid";
 import React from "react";
+import Intropage from "./components/Intropage/intropage.jsx";
+import Question from "./components/Question/question.jsx";
 
 function App() {
   
@@ -13,15 +16,37 @@ function App() {
     return array;
   }
 
+  function getSubmittedAnswer(event, question_id) {
+    setQuizQuestions(prevQuizQuestions => prevQuizQuestions.map(question => {
+        return (question.id === question_id) 
+          ? {...question, submittedAnswer: event.target.value} 
+          : question
+    }))
+  }
+
+  function calculateScore(questions) {
+    let score = 0;
+
+    for(let question of questions) {
+      if(question.answer === question.submittedAnswer) {
+        ++score;
+      }
+    }
+
+    return score;
+  }
+
   React.useEffect(() => {
     
     async function getQuizQuestions() {
       const response = await fetch('https://opentdb.com/api.php?amount=5&encode=base64')
       const data = await response.json();
       return data.results.map((question) => ({
+        id: nanoid(),
         question: question.question,
         answer: question.correct_answer,
-        options: shuffleArray(question.incorrect_answers.concat(question.correct_answer))
+        options: shuffleArray(question.incorrect_answers.concat(question.correct_answer)),
+        submittedAnswer: null
       }))
     }
 
@@ -30,43 +55,29 @@ function App() {
     });
 
   }, []);
+
+  React.useEffect(() => {
+    console.log(calculateScore(quizQuestions));
+  }, [quizQuestions])
   
   return (
     <div className="container">
       {!quizStarted 
-        ? 
-        <div className="quiz-intro-page">
-          <div className="heading"> Quizzical</div>
-          <div className="sub-heading">Some description if needed</div>
-          <div 
-            className="start-button" 
-            onClick={() => setQuizStarted(true)}>
-              Start Quiz
-          </div>
-        </div> 
+        ?
+        <Intropage 
+          handleGameState={() => setQuizStarted(true)}
+        /> 
         :
         <div className="quiz-page">
           {quizQuestions.map((question, i) => (
-            <div key={i}>
-              <div className="question">{window.atob(question.question)}</div>
-              <ul className="flex-container longhand">
-                {question.options.map((option, j) => (
-                  <li className="flex-item" key={`question-${i}-option-${j}`} >
-                    <input 
-                      id={`question-${i}-option-${j}`}
-                      type="radio" 
-                      name={`question-${i}`} 
-                      value={option} />
-                    <label htmlFor={`question-${i}-option-${j}`}>
-                      {window.atob(option)}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-              <hr style={{
-                border: "0.794239px solid #DBDEF0"
-              }}/>
-            </div>
+            <Question 
+              key={i} 
+              index={i} 
+              question={question.question} 
+              options={question.options}
+              submittedAnswer={question.submittedAnswer}
+              handleAnswers={(event) => getSubmittedAnswer(event, question.id)}
+            />
           ))}
         </div>
       }
@@ -74,4 +85,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;  

@@ -1,0 +1,51 @@
+.question {
+  font-family: 'Karla', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #293264;
+  margin: 12px 0px;
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.longhand {
+  flex-flow: wrap row;
+}
+
+.flex-item {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  margin: 8px 4px;
+}
+
+label {
+  border: 1px solid #4D5B9E;
+  padding: 4px 8px;
+  height: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+input:checked + label {
+  background: #D6DBF5;
+  border: none;
+  padding: 5px 9px;
+}
+
+input {
+  display: none;
+}
+
+ul {
+  padding-inline-start: 0px;
+  padding-inline-end: 0px;
+}
