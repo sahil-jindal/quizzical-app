@@ -22,3 +22,39 @@ code {
 .quiz-page {
   padding: 40px;
 }
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.score-result {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12.8px;
+  line-height: 15px;
+  text-align: center;
+  color: #293264;
+  margin-right: 15px;
+}
+
+.score-button {
+  background: #4D5B9E;
+  border-radius: 10px;
+  padding: 11px 22px;
+  max-width: 100%;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10.24px;
+  line-height: 12px;
+  text-align: center;
+  color: #F5F7FB;
+}

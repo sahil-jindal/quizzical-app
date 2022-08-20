@@ -7,6 +7,7 @@ function App() {
   
   const [quizQuestions, setQuizQuestions] = React.useState([]);
   const [quizStarted, setQuizStarted] = React.useState(false);
+  const [scoreChecked, setScoreChecked] = React.useState(false);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -34,6 +35,15 @@ function App() {
     }
 
     return score;
+  }
+
+  function handleState() {
+    if(!scoreChecked) {
+      setScoreChecked(true)
+    } else {
+      setQuizStarted(false)
+      setScoreChecked(false)
+    }
   }
 
   React.useEffect(() => {
@@ -79,6 +89,18 @@ function App() {
               handleAnswers={(event) => getSubmittedAnswer(event, question.id)}
             />
           ))}
+          <div className="footer">
+            {scoreChecked && 
+              <div className="score-result">
+                You scored {calculateScore(quizQuestions)} / {quizQuestions.length} correct answers 
+              </div>
+            }
+            <button 
+              className="score-button"
+              onClick={() => handleState()}>
+                {!scoreChecked ? "Check Answers" : "Play again"}
+            </button>
+          </div>
         </div>
       }
     </div>
